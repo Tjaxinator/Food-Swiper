@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Food Swiper</title>
+  <style>
+    /* --- Reset & layout --- */
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #fafafa; display: flex;
+           align-items:center; justify-content:center; height:100vh; flex-direction:column; }
+
+    /* --- Card --- */
+    #card {
+      position: relative;
+      width: 300px; height: 420px;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      overflow: hidden;
+      touch-action: pan-y;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    #card img { width:100%; height:200px; object-fit:cover; }
+    #card .info { padding: 1rem; text-align:center; }
+    #card h2 { font-size:1.25rem; margin-bottom:0.5rem; }
+    #card p { color:#555; }
+
+    /* --- Buttons --- */
+    .buttons { margin-top:1rem; display:flex; gap:2rem; }
+    .btn { font-size:2rem; background:none; border:none; cursor:pointer; }
+
+    /* --- Popup feedback --- */
+    #popup {
+      position: absolute; top:50%; left:50%; transform: translate(-50%,-50%) scale(0);
+      background: rgba(255,255,255,0.9); padding:1rem 1.5rem; border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15); font-size:1.1rem; font-weight:600;
+      transition: transform 0.2s ease;
+      pointer-events:none;
+    }
+    #popup.show { transform: translate(-50%,-50%) scale(1); }
+  </style>
+</head>
+<body>
+
+  <div id="card">
+    <img id="image" src="" alt="">
+    <div class="info">
+      <h2 id="name"></h2>
+      <p id="desc"></p>
+    </div>
+    <div id="popup">New Match! ❤️</div>
+  </div>
+
+  <div class="buttons">
+    <button class="btn" id="no">❌</button>
+    <button class="btn" id="yes">✅</button>
+  </div>
+
+  <script>
+  let options = [], index = 0, yesList = [];
+
+  // Load your options list
+  fetch('options.json')
+    .then(r => r.json())
+    .then(data => {
+      options = shuffle(data);
+      renderCard();
+    });
+
+  // Fisher–Yates shuffle
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const card = document.getElementById('card');
+  const nameEl = document.getElementById('name');
+  const imgEl  = document.getElementById('image');
+  const descEl = document.getElementById('desc');
+  const popup = document.getElementById('popup');
+
+  function renderCard() {
+    if (index >= options.length) {
+      card.innerHTML = `
+        <div class="info" style="padding-top:2rem;">
+          <h2>All done!</h2>
+          <p>You ❤️:</p>
+          <ul style="text-align:left; margin:1rem;">
+            ${yesList.map(n => `<li>${n}</li>`).join('')}
+          </ul>
+        </div>`;
+      return;
+    }
+    const {name, image, description} = options[index];
+    nameEl.textContent = name;
+    descEl.textContent = description;
+    imgEl.src = image;
+    imgEl.alt = name;
+    card.style.opacity = 1;
+    card.style.transform = 'translateX(0)';
+  }
+
+  function showPopup() {
+    popup.classList.add('show');
+    setTimeout(() => popup.classList.remove('show'), 800);
+  }
+
+  function swipe(dir) {
+    // animate off-screen
+    const x = dir === 'yes' ? 400 : -400;
+    card.style.transform = `translateX(${x}px)`;
+    card.style.opacity = 0;
+    if (dir === 'yes') {
+      yesList.push(options[index].name);
+      showPopup();
+    }
+    index++;
+    setTimeout(renderCard, 300);
+  }
+
+  // buttons
+  document.getElementById('no').onclick  = () => swipe('no');
+  document.getElementById('yes').onclick = () => swipe('yes');
+
+  // touch gestures (mobile)
+  let startX = 0;
+  card.addEventListener('touchstart', e => {
+    startX = e.changedTouches[0].clientX;
+  });
+  card.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) {
+      swipe(dx>0 ? 'yes':'no');
+    }
+  });
+  </script>
+</body>
+</html>

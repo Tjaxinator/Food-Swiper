@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Luigi’s Pizza",
+    "image": "assets/luigis.jpg",
+    "description": "Wood-fired pizza with vegan options"
+  },
+  {
+    "name": "Sushi Star",
+    "image": "assets/sushi.jpg",
+    "description": "Fresh sushi rolls and miso soup"
+  },
+  {
+    "name": "Green Bowl",
+    "image": "assets/salad.jpg",
+    "description": "Vegan bowls and smoothies"
+  }]
