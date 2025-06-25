@@ -1,16 +1,57 @@
 [
   {
-    "name": "Luigi’s Pizza",
-    "image": "assets/luigis.jpg",
-    "description": "Wood-fired pizza with vegan options"
+    "name": "Wings Etc",
+    "image": "assets/wings.png",
+    "description": "Buffalo Chicken Wrap"
   },
   {
-    "name": "Sushi Star",
-    "image": "assets/sushi.jpg",
-    "description": "Fresh sushi rolls and miso soup"
+    "name": "King Gyros",
+    "image": "assets/gyros.jpg",
+    "description": "Gyros Platter"
   },
   {
-    "name": "Green Bowl",
-    "image": "assets/salad.jpg",
-    "description": "Vegan bowls and smoothies"
-  }]
+    "name": "Bourbon Street",
+    "image": "assets/bourbon.png",
+    "description": "Chicken Club Pizza"
+  },
+  {
+    "name": "Dairy Queen",
+    "image": "assets/dq.jpg",
+    "description": "Chicken Tender Basket"
+  },
+  {
+    "name": "Applebees",
+    "image": "assets/ab.png",
+    "description": "6oz Top Sirloin"
+  },
+  {
+    "name": "Papa Johns",
+    "image": "assets/papajohn.png",
+    "description": "Pepperoni Pizza with Olives, Cheesesticks"
+  },
+  {
+    "name": "Wendys",
+    "image": "assets/wendy.png",
+    "description": "Spicy Chicken Sandwich, Xtra Tomato, Xtra Mayo, + Pickles"
+  },
+  {
+    "name": "Hacienda",
+    "image": "assets/haci.jpg",
+    "description": "Taco Salad, No Green Peppers or Shell, opt. Chips + Ranch/Salsa"
+  },
+  {
+    "name": "Taco Bell",
+    "image": "assets/tb.jpg",
+    "description": "Three Crunchy Supreme Tacos, Baja Blast"
+  },
+  {
+    "name": "Jimmy Johns",
+    "image": "assets/jj.jpg",
+    "description": "Turkey Tom, Jalapeno Jimmy Chips"
+  },
+  {
+    "name": "Subway",
+    "image": "assets/sw.jpg",
+    "description": "Spicy Italian, Sun Chips"
+  }
+]
